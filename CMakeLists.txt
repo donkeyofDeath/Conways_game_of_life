@@ -3,4 +3,4 @@ project(Conways_game_of_life)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Conways_game_of_life main.cpp)
+add_executable(Conways_game_of_life main.cpp game_of_life/game_of_life.cpp game_of_life/game_of_life.h)
