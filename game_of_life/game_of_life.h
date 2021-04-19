@@ -22,7 +22,7 @@ class GameOfLife {
         grid.fill({});
     }
 
-
+    // Move this to the game_of_life.cpp file.
     void initialize_random_grid(){
 
         std::random_device rd;
