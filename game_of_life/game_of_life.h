@@ -22,7 +22,7 @@ class GameOfLife {
         grid.fill({});
     }
 
-    // Move this to the game_of_life.cpp file.
+
     void initialize_random_grid(){
 
         std::random_device rd;
@@ -35,6 +35,21 @@ class GameOfLife {
                 bool random_bool = dist(mt);
 
                 grid[i][j] = random_bool;
+
+            }
+        }
+    }
+
+
+    void update(){
+        for(int i = 0; i < dimension_x; i++){
+            for(int j = 0; j < dimension_y; j++){
+                if(i == 0){
+                    
+                    if(j==0){
+
+                    }
+                }
 
             }
         }
