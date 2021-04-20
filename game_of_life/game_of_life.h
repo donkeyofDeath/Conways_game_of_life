@@ -20,44 +20,6 @@ class GameOfLife {
 
     /**
      *
-     * @param i
-     * @param j
-     * @return
-     */
-    bool check_grid_point(unsigned long i, unsigned long j){
-
-        bool grid_point_status = this->last_grid[i][j];
-        // std::cout << grid_point_status << "";
-        int sum = 0;
-
-        for(int ii = -1; ii <= 1; ii++){
-            if(i + ii < 0 || i + ii > number_of_rows - 1){
-                continue;
-            }
-            for(int jj = -1; jj <= 1; jj++){
-                if(j + jj < 0 || j + jj > number_of_columns - 1){
-                    continue;
-                }
-                else if(ii != 0 && jj != 0){
-                    sum = sum + this->last_grid[i + ii][j + jj];
-                }
-            }
-        }
-        if(grid_point_status){
-            std::cout << i << "," << j << " sum:" << sum << "\t";
-            return (sum == 2 || sum == 3);
-
-        }
-        else{
-            // std::cout << i << "," << j << "\t";
-            std::cout << i << "," << j << " sum:" << sum << "\t";
-            return (sum == 3);
-        }
-    }
-
-
-    /**
-     *
      */
     void initialize_random_grid(){
 
@@ -81,6 +43,49 @@ class GameOfLife {
         int number_of_time_steps{};
         std::array<std::array<bool, number_of_columns>, number_of_rows> current_grid{};
         std::array<std::array<bool, number_of_columns>, number_of_rows> last_grid{};
+
+
+        /**
+        *
+        * @param i
+        * @param j
+        * @return
+        */
+        bool check_grid_point(int i, int j){
+
+            bool grid_point_status = this->last_grid[i][j];
+            // std::cout << grid_point_status << "";
+            int sum = 0;
+
+            std::cout << "\n " << i << "," << j << ":" << "\t";
+
+            for(int ii = -1; ii <= 1; ii++){
+                if(i + ii < 0 || i + ii > number_of_rows - 1){
+                    // std::cout << "aborted_i:" << ii+i << " ";
+                    continue;
+                }
+                for(int jj = -1; jj <= 1; jj++){
+                    if(j + jj < 0 || j + jj > number_of_columns - 1){
+                        // std::cout << "aborted_j:" << j + jj << " ";
+                        continue;
+                    }
+                    else if(!(ii == 0 && jj == 0)){
+                        std::cout << i + ii << "," << j + jj << " ";
+                        sum += this->last_grid[i + ii][j + jj];
+                    }
+                }
+            }
+            if(grid_point_status){
+                // std::cout << i << "," << j << " sum:" << sum << "\t";
+                return (sum == 2 || sum == 3);
+
+            }
+            else{
+                // std::cout << i << "," << j << "\t";
+                // std::cout << i << "," << j << " sum:" << sum << "\t";
+                return (sum == 3);
+            }
+        }
 
 
         /**
@@ -138,7 +143,7 @@ class GameOfLife {
          *
          */
         void run(){
-            for(int i = 0; i < number_of_time_steps;i++){
+            for(int i = 0; i < number_of_time_steps; i++){
                 update();
             }
         }
