@@ -10,48 +10,55 @@
 #include <random>
 #include <iostream>
 
-
+/**
+ *
+ * @tparam number_of_rows
+ * @tparam number_of_columns
+ */
 template<size_t number_of_rows, size_t number_of_columns>
 class GameOfLife {
 
+    /**
+     *
+     * @param i
+     * @param j
+     * @return
+     */
     bool check_grid_point(unsigned long i, unsigned long j){
 
-        bool grid_point_status = current_grid[i][j];
+        bool grid_point_status = this->last_grid[i][j];
+        // std::cout << grid_point_status << "";
         int sum = 0;
-        short start_value_i = -1;
-        short start_value_j = -1;
-        short end_value_i = 2;
-        short end_value_j = 2;
 
-        if(i == 0){
-            start_value_i = 0;
-        }
-        else if(i == number_of_rows - 1){
-            end_value_i = 1;
-        }
-        if(j == 0){
-            start_value_j = 0;
-        }
-        else if(j == number_of_columns - 1){
-            end_value_j = 1;
-        }
-
-        for(int ii = start_value_i; ii < end_value_i; ii++){
-            for(int jj = start_value_j; jj < end_value_j; jj++){
-                if(ii != 0 && jj != 0) {
-                    sum = sum + (int) current_grid[i + ii][j + jj];
+        for(int ii = -1; ii <= 1; ii++){
+            if(i + ii < 0 || i + ii > number_of_rows - 1){
+                continue;
+            }
+            for(int jj = -1; jj <= 1; jj++){
+                if(j + jj < 0 || j + jj > number_of_columns - 1){
+                    continue;
+                }
+                else if(ii != 0 && jj != 0){
+                    sum = sum + this->last_grid[i + ii][j + jj];
                 }
             }
         }
-        if(grid_point_status) {
+        if(grid_point_status){
+            std::cout << i << "," << j << " sum:" << sum << "\t";
             return (sum == 2 || sum == 3);
+
         }
         else{
+            // std::cout << i << "," << j << "\t";
+            std::cout << i << "," << j << " sum:" << sum << "\t";
             return (sum == 3);
         }
     }
 
 
+    /**
+     *
+     */
     void initialize_random_grid(){
 
         std::random_device rd;
@@ -76,12 +83,19 @@ class GameOfLife {
         std::array<std::array<bool, number_of_columns>, number_of_rows> last_grid{};
 
 
+        /**
+         *
+         * @param number_of_time_steps
+         */
         explicit GameOfLife(int number_of_time_steps){
             this->number_of_time_steps = number_of_time_steps;
             initialize_random_grid();
         }
 
 
+        /*
+         *
+         */
         void print_current_grid(){
             for(std::array<bool, number_of_columns> arr: this->current_grid) {
                 for (bool i: arr) {
@@ -91,6 +105,10 @@ class GameOfLife {
             }
         }
 
+
+        /**
+         *
+         */
         void print_last_grid(){
             for(std::array<bool, number_of_columns> arr: this->last_grid) {
                 for (bool i: arr) {
@@ -101,14 +119,27 @@ class GameOfLife {
         }
 
 
+        /**
+         *
+         */
         void update(){
 
             last_grid = current_grid;
 
-            for(int i = 0; i < number_of_columns; i++){
-                for(int j = 0; j < number_of_rows; j++){
-
+            for(int i = 0; i < number_of_rows; i++){
+                for(int j = 0; j < number_of_columns; j++){
+                    current_grid[i][j] = check_grid_point(i, j);
                 }
+            }
+        }
+
+
+        /**
+         *
+         */
+        void run(){
+            for(int i = 0; i < number_of_time_steps;i++){
+                update();
             }
         }
 };
