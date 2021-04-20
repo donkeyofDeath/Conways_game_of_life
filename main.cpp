@@ -1,17 +1,12 @@
-#include <iostream>
-#include <array>
-#include "matrix_class/matrix.h"
+#include "game_of_life//game_of_life.h"
 
 int main() {
 
-    std::array<std::array<double, 3>, 3> arr = {{{1., 0., 0.},
-                                                 {0., 1., 0.},
-                                                 {0., 0., 1.}}};
+    GameOfLife<10, 10> my_game_of_life(10);
 
-    Matrix<3, 3> matrix(arr);
+    my_game_of_life.initialize_random_grid();
 
-    matrix.print();
+    my_game_of_life.print_grid();
 
-    // std::cout << "Hello, World!" << std::endl;
     return 0;
 }
