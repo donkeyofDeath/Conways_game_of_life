@@ -69,24 +69,30 @@ int main(int argc, char *argv[])
 
     SDL_UpdateWindowSurface(window_ptr);
 
-    SDL_Renderer  * renderer_ptr =  SDL_CreateRenderer( window_ptr, -1, SDL_RENDERER_ACCELERATED);
+    SDL_Renderer *renderer_ptr = SDL_CreateRenderer( window_ptr, -1, SDL_RENDERER_ACCELERATED);
 
     //SDL_SetRenderDrawColor(renderer_ptr, 255, 0, 0, 255);
 
     // Creat a rect at pos ( 50, 50 ) that's 50 pixels wide and 50 pixels high.
 
     for(int i = 0; i < 10; i++){
-        for(int j = 0; j < 10;)
-        SDL_Rect r;
-        r.x = i*(width/10);
-        r.y = j*(height/10);
-        r.w = width/10;
-        r.h = height/10;
+        for(int j = 0; j < 10; j++){
+            SDL_Rect r;
+            r.x = i * (width / 10);
+            r.y = j * (height / 10);
+            r.w = width / 10;
+            r.h = height / 10;
+
+            // Set render color to blue ( rect will be rendered in this color )
+            SDL_SetRenderDrawColor(renderer_ptr, i * (255 / 10), j * (255 / 10), 255, 255);
+
+            // Render rect
+            SDL_RenderFillRect(renderer_ptr, &r);
+
+        }
     }
 
-    SDL_Rect r;
-
-
+    /*
     SDL_Rect r2;
     r2.x = 50;
     r2.y = 50;
@@ -102,6 +108,7 @@ int main(int argc, char *argv[])
     SDL_SetRenderDrawColor(renderer_ptr, 255, 255, 0, 255);
 
     SDL_RenderFillRect(renderer_ptr, &r2);
+    */
 
     // Render the rect to the screen
     SDL_RenderPresent(renderer_ptr);
@@ -112,8 +119,6 @@ int main(int argc, char *argv[])
     while(running){
 
         Uint32 starting_tick = SDL_GetTicks();
-
-        for
 
         while(SDL_PollEvent(&event)){
             if(event.type == SDL_QUIT){
