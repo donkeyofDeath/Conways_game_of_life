@@ -3,7 +3,6 @@
 // #include <unistd.h> // for sleep()
 #include <chrono>
 #include <SDL2/SDL.h>
-// #include <SDL2/SDL_image.h>
 
 // using namespace std::chrono;
 
@@ -32,35 +31,48 @@ int main() {
     return 0;
 }
 */
-int main()
+int main(int argc, char *argv[])
 {
+    const int width = 680;
+    const int height = 480;
+
     if(SDL_Init(SDL_INIT_VIDEO) < 0)
     {
         std::cout << "Failed to initialize the SDL2 library\n";
         return -1;
     }
 
-    SDL_Window *window = SDL_CreateWindow("SDL2 Window",
-                                          SDL_WINDOWPOS_CENTERED,
-                                          SDL_WINDOWPOS_CENTERED,
-                                          680, 480,
-                                          0);
+    SDL_Window *window_ptr = SDL_CreateWindow("SDL2 Window",SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width
+                                          , height,SDL_WINDOW_RESIZABLE);
 
-    if(!window)
+    if(!window_ptr)
     {
         std::cout << "Failed to create window\n";
         return -1;
     }
 
-    SDL_Surface *window_surface = SDL_GetWindowSurface(window);
+    SDL_Surface *surface_ptr = SDL_GetWindowSurface(window_ptr);
 
-    if(!window_surface)
-    {
-        std::cout << "Failed to get the surface from the window\n";
-        return -1;
+    uint32_t white = SDL_MapRGB(surface_ptr->format, 255, 255, 255);
+
+    SDL_FillRect(surface_ptr, nullptr, white);
+
+    SDL_UpdateWindowSurface(window_ptr);
+
+    SDL_Event event;
+    bool running = true;
+
+    while(running){
+        while(SDL_PollEvent(&event)){
+            if(event.type == SDL_QUIT){
+                running = false;
+                break;
+            }
+        }
     }
 
-    SDL_UpdateWindowSurface(window);
+    SDL_DestroyWindow(window_ptr);
+    SDL_Quit();
 
-    SDL_Delay(5000);
+    return 0;
 }
