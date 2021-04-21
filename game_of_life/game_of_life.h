@@ -51,7 +51,7 @@ class GameOfLife {
         * @param j
         * @return
         */
-        bool check_grid_point(int i, int j){
+        bool check_grid_point(const int i, const int j){
 
             bool grid_point_status = this->last_grid[i][j];
             int sum = 0;

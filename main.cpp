@@ -1,24 +1,27 @@
 #include "game_of_life//game_of_life.h"
 #include <iostream>
-#include <unistd.h> // for sleep()
+// #include <unistd.h> // for sleep()
+#include <chrono>
+
+using namespace std::chrono;
 
 int main() {
 
     int number_of_time_steps = 100;
 
-    GameOfLife<5, 5> my_game_of_life(number_of_time_steps);
+    GameOfLife<500, 500> my_game_of_life(number_of_time_steps);
 
-    my_game_of_life.print_current_grid();
+    auto start = high_resolution_clock::now();
 
-    for(int i = 0; i < number_of_time_steps; i++){
-        my_game_of_life.update();
+    my_game_of_life.update();
 
-        my_game_of_life.print_current_grid();
-        sleep(1);
-        for(int i = 0; i < 100; i++){
-            std::cout << "\b" << std::flush;
-        }
-    }
+    auto stop = high_resolution_clock::now();
+
+    auto duration = duration_cast<microseconds>(stop - start);
+
+    // To get the value of duration use the count()
+    // member function on the duration object
+    std::cout << duration.count() << std::endl;
 
     return 0;
 }
