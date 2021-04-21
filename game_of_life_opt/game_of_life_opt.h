@@ -5,7 +5,6 @@
 #ifndef GAME_OF_LIFE_H_GAME_OF_LIFE_OPT_H
 #define GAME_OF_LIFE_H_GAME_OF_LIFE_OPT_H
 
-
 #include <array>
 #include <random>
 #include <iostream>
