@@ -4,13 +4,16 @@
 #include <chrono>
 #include <SDL2/SDL.h>
 
+// TODO: Add documentation for main function.
+// TODO: Add tests.
+// TODO: Add Error handling for the SDL functions.
 
 /**
  *
  */
 const unsigned int FPS = 10;
 const int WINDOW_WIDTH = 900;
-const int WINDOW_HEIGHT = 600;
+const int WINDOW_HEIGHT = 900;
 
 
 void cap_frame_rate(const uint32_t starting_tick){
@@ -23,7 +26,7 @@ void cap_frame_rate(const uint32_t starting_tick){
 
 int main(int argc, char *argv[])
 {
-    GameOfLife<100, 100> my_game_of_life(100);
+    GameOfLife<900, 900> my_game_of_life(100);
 
     if(SDL_Init(SDL_INIT_VIDEO) < 0)
     {
