@@ -11,6 +11,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 
+//TODO: Add class documentation.
 
 /**
  *
@@ -145,27 +146,40 @@ class GameOfLife {
                 return;
             }
 
+            // int number_of_calls = 0; // For testing purposes
+
             for(int i = 0; i < number_of_columns; i++){
                 for(int j = 0; j < number_of_rows; j++){
 
-                    SDL_Rect r;
-                    r.x = i * (window_width / number_of_columns);
-                    r.y = j * (window_height / number_of_rows);
-                    r.w = window_width / number_of_columns;
-                    r.h = window_height / number_of_rows;
+                    /* The != operator serves as an EXOR here to check if a value has changed. Only if the value has
+                    a new rect will be rendered. */
+                    if(current_grid[i][j] != last_grid[i][j]){
 
-                    // Set render color to blue ( rect will be rendered in this color )
-                    if (current_grid[i][j]){
-                        SDL_SetRenderDrawColor(renderer_ptr, 0, 255, 0, 255);
+                        //number_of_calls++; //For testing purposes
+
+                        //Only render a new rect if the value has changed.
+                        SDL_Rect r;
+                        r.x = i * (window_width / number_of_columns);
+                        r.y = j * (window_height / number_of_rows);
+                        r.w = window_width / number_of_columns;
+                        r.h = window_height / number_of_rows;
+
+                        // Set render color to blue ( rect will be rendered in this color )
+                        if (current_grid[i][j]){
+                            SDL_SetRenderDrawColor(renderer_ptr, 0, 255, 0, 255);
+                        }
+                        else{
+                            SDL_SetRenderDrawColor(renderer_ptr, 0, 0, 0, 255);
+                        }
+                        // Render rect
+                        SDL_RenderFillRect(renderer_ptr, &r);
                     }
                     else{
-                        SDL_SetRenderDrawColor(renderer_ptr, 0, 0, 0, 255);
+                        continue;
                     }
-                    // Render rect
-                    SDL_RenderFillRect(renderer_ptr, &r);
-
                 }
             }
+            // std::cout << number_of_calls << "\n"; // For testing purposes.
         }
 
 
