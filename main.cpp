@@ -31,7 +31,14 @@ int main() {
     return 0;
 }
 */
+
+/**
+ *
+ */
 const unsigned int FPS = 24;
+const int WINDOW_WIDTH = 900;
+const int WINDOW_HEIGHT = 600;
+
 
 void cap_frame_rate(const uint32_t starting_tick){
     const double val = 1000./FPS;
@@ -40,20 +47,57 @@ void cap_frame_rate(const uint32_t starting_tick){
     }
 }
 
+/**
+ *
+ * @tparam T1
+ * @tparam T2
+ * @param renderer_ptr
+ * @param grid
+ */
+
+template<size_t T1, size_t T2>
+void render_grid(SDL_Renderer *renderer_ptr, std::array<std::array<double, T2>, T1> grid){
+
+    if(WINDOW_WIDTH % T2 != 0 || WINDOW_HEIGHT % T1 != 0){
+        std::cout << "T1 must divide the window height and T2 has to divide the window width.\n";
+        return;
+    }
+
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> dist(0, 255);
+
+    for(int i = 0; i < 10; i++){
+        for(int j = 0; j < 10; j++){
+            SDL_Rect r;
+            r.x = i * (WINDOW_WIDTH / 10);
+            r.y = j * (WINDOW_HEIGHT / 10);
+            r.w = WINDOW_WIDTH / 10;
+            r.h = WINDOW_HEIGHT / 10;
+
+            // Set render color to blue ( rect will be rendered in this color )
+            SDL_SetRenderDrawColor(renderer_ptr, dist(mt), dist(mt), dist(mt), 255);
+
+            // Render rect
+            SDL_RenderFillRect(renderer_ptr, &r);
+
+        }
+    }
+}
+
 
 int main(int argc, char *argv[])
 {
-    const int width = 680;
-    const int height = 480;
-
     if(SDL_Init(SDL_INIT_VIDEO) < 0)
     {
         std::cout << "Failed to initialize the SDL2 library\n";
         return -1;
     }
 
-    SDL_Window *window_ptr = SDL_CreateWindow("SDL2 Window",SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width
-                                          , height,SDL_WINDOW_RESIZABLE);
+    SDL_Window *window_ptr = SDL_CreateWindow("SDL2 Window",
+                                              SDL_WINDOWPOS_CENTERED,
+                                              SDL_WINDOWPOS_CENTERED,
+                                              WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE);
 
     if(!window_ptr)
     {
@@ -71,22 +115,7 @@ int main(int argc, char *argv[])
 
     SDL_Renderer *renderer_ptr = SDL_CreateRenderer( window_ptr, -1, SDL_RENDERER_ACCELERATED);
 
-    for(int i = 0; i < 10; i++){
-        for(int j = 0; j < 10; j++){
-            SDL_Rect r;
-            r.x = i * (width / 10);
-            r.y = j * (height / 10);
-            r.w = width / 10;
-            r.h = height / 10;
-
-            // Set render color to blue ( rect will be rendered in this color )
-            SDL_SetRenderDrawColor(renderer_ptr, i * (255 / 10), j * (255 / 10), 255, 255);
-
-            // Render rect
-            SDL_RenderFillRect(renderer_ptr, &r);
-
-        }
-    }
+    render_rand_rects(renderer_ptr);
 
     // Render the rect to the screen
     SDL_RenderPresent(renderer_ptr);
@@ -94,9 +123,14 @@ int main(int argc, char *argv[])
     SDL_Event event;
     bool running = true;
 
+    // Main game loop
     while(running){
 
         Uint32 starting_tick = SDL_GetTicks();
+
+        render_rand_rects(renderer_ptr);
+        // Render the rect to the screen
+        SDL_RenderPresent(renderer_ptr);
 
         while(SDL_PollEvent(&event)){
             if(event.type == SDL_QUIT){
