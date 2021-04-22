@@ -20,46 +20,6 @@ void cap_frame_rate(const uint32_t starting_tick){
     }
 }
 
-/**
- *
- * @tparam T1
- * @tparam T2
- * @param renderer_ptr
- * @param grid
- */
-
-/*
-template<size_t T1, size_t T2>
-void render_grid(SDL_Renderer *renderer_ptr, std::array<std::array<bool, T2>, T1> &grid){
-
-    if(WINDOW_WIDTH % T2 != 0 || WINDOW_HEIGHT % T1 != 0){
-        std::cout << "T1 must divide the window height and T2 has to divide the window width.\n";
-        return;
-    }
-
-    for(int i = 0; i < T2; i++){
-        for(int j = 0; j < T1; j++){
-            SDL_Rect r;
-            r.x = i * (WINDOW_WIDTH / T2);
-            r.y = j * (WINDOW_HEIGHT / T1);
-            r.w = WINDOW_WIDTH / T2;
-            r.h = WINDOW_HEIGHT / T1;
-
-            // Set render color to blue ( rect will be rendered in this color )
-            if (grid[i][j]) {
-                SDL_SetRenderDrawColor(renderer_ptr, 0, 255, 0, 255);
-            }
-            else{
-                SDL_SetRenderDrawColor(renderer_ptr, 0, 0, 0, 255);
-            }
-            // Render rect
-            SDL_RenderFillRect(renderer_ptr, &r);
-
-        }
-    }
-}
- */
-
 
 int main(int argc, char *argv[])
 {
@@ -82,23 +42,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    SDL_Surface *surface_ptr = SDL_GetWindowSurface(window_ptr);
-
-    // Uint32 white = SDL_MapRGB(surface_ptr->format, 255, 255, 255);
-
-    // SDL_FillRect(surface_ptr, nullptr, white);
-
-    // SDL_UpdateWindowSurface(window_ptr);
-
     SDL_Renderer *renderer_ptr = SDL_CreateRenderer( window_ptr, -1, SDL_RENDERER_ACCELERATED);
-
-    // render_rand_rects(renderer_ptr);
-
-    std::array<std::array<bool, 10>, 10> test_grid{};
-
-    test_grid[0][0] = true;
-
-    // render_grid(renderer_ptr, test_grid);
 
     my_game_of_life.render_current_grid(renderer_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 
