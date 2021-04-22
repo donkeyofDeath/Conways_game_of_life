@@ -57,9 +57,6 @@ int main(int argc, char *argv[])
 
         Uint32 starting_tick = SDL_GetTicks();
 
-        // render_rand_rects(renderer_ptr);
-        // Render the rect to the screen
-
         my_game_of_life.update();
         my_game_of_life.render_current_grid(renderer_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
         SDL_RenderPresent(renderer_ptr);
@@ -73,6 +70,8 @@ int main(int argc, char *argv[])
         cap_frame_rate(starting_tick);
     }
 
+    // Destroy everything and quit the game.
+    SDL_DestroyRenderer(renderer_ptr);
     SDL_DestroyWindow(window_ptr);
     SDL_Quit();
 
