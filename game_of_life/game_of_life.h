@@ -9,6 +9,8 @@
 #include <array>
 #include <random>
 #include <iostream>
+#include <SDL2/SDL.h>
+
 
 /**
  *
@@ -46,6 +48,16 @@ class GameOfLife {
 
 
         /**
+         *
+         * @param number_of_time_steps
+         */
+        explicit GameOfLife(int number_of_time_steps){
+            this->number_of_time_steps = number_of_time_steps;
+            initialize_random_grid();
+        }
+
+
+        /**
         *
         * @param i
         * @param j
@@ -76,16 +88,6 @@ class GameOfLife {
             else{
                 return (sum == 3);
             }
-        }
-
-
-        /**
-         *
-         * @param number_of_time_steps
-         */
-        explicit GameOfLife(int number_of_time_steps){
-            this->number_of_time_steps = number_of_time_steps;
-            initialize_random_grid();
         }
 
 
@@ -125,6 +127,43 @@ class GameOfLife {
             for(int i = 0; i < number_of_rows; i++){
                 for(int j = 0; j < number_of_columns; j++){
                     current_grid[i][j] = check_grid_point(i, j);
+                }
+            }
+        }
+
+
+        /**
+         *
+         * @param renderer_ptr
+         * @param window_width
+         * @param window_height
+         */
+        void render_current_grid(SDL_Renderer *renderer_ptr, const int window_width, const int window_height){
+
+            if(window_width % number_of_columns != 0 || window_height % number_of_rows != 0){
+                std::cout << "T1 must divide the window height and T2 has to divide the window width.\n";
+                return;
+            }
+
+            for(int i = 0; i < number_of_columns; i++){
+                for(int j = 0; j < number_of_rows; j++){
+
+                    SDL_Rect r;
+                    r.x = i * (window_width / number_of_columns);
+                    r.y = j * (window_height / number_of_rows);
+                    r.w = window_width / number_of_columns;
+                    r.h = window_height / number_of_rows;
+
+                    // Set render color to blue ( rect will be rendered in this color )
+                    if (current_grid[i][j]){
+                        SDL_SetRenderDrawColor(renderer_ptr, 0, 255, 0, 255);
+                    }
+                    else{
+                        SDL_SetRenderDrawColor(renderer_ptr, 0, 0, 0, 255);
+                    }
+                    // Render rect
+                    SDL_RenderFillRect(renderer_ptr, &r);
+
                 }
             }
         }
