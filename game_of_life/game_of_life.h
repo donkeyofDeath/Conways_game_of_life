@@ -48,7 +48,6 @@ public:
     std::array<std::array<bool, number_of_columns>, number_of_rows> current_grid{};
     std::array<std::array<bool, number_of_columns>, number_of_rows> last_grid{};
 
-
     /**
      *Constructor for the game of life objects. In this constructor the grid is initialized randomly.
      */
