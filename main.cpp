@@ -3,12 +3,11 @@
 #include <SDL2/SDL.h>
 
 // TODO: Add tests.
-// TODO: Add Error handling for the SDL functions.
 
 
-const unsigned int FPS = 20; // FPS at which the game is running.
+const unsigned int FPS = 30; // FPS at which the game is running.
 const int WINDOW_WIDTH = 900; // Height of the game window in pixels.
-const int WINDOW_HEIGHT = 600; // Width of the game window in pixels.
+const int WINDOW_HEIGHT = 900; // Width of the game window in pixels.
 
 
 /**
@@ -63,7 +62,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    GameOfLife<100, 150> my_game_of_life; // Initialize a game of life object.
+    GameOfLife<300, 300> my_game_of_life; // Initialize a game of life object.
     my_game_of_life.render_grid(renderer_ptr, WINDOW_WIDTH, WINDOW_HEIGHT); // Render grid for the first time.
     SDL_RenderPresent(renderer_ptr); // Render the rect to the screen.
     SDL_Event event; // Define SDL event, which used for quitting the game.
