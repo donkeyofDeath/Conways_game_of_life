@@ -43,7 +43,6 @@ class GameOfLife {
 
 public:
 
-    int number_of_time_steps{};
     std::array<std::array<bool, number_of_columns>, number_of_rows> current_grid{};
     std::array<std::array<bool, number_of_columns>, number_of_rows> last_grid{};
 
@@ -52,8 +51,7 @@ public:
      *
      * @param number_of_time_steps
      */
-    explicit GameOfLife(int number_of_time_steps) {
-        this->number_of_time_steps = number_of_time_steps;
+    explicit GameOfLife() {
         initialize_random_grid();
     }
 
@@ -136,7 +134,7 @@ public:
      * @param window_width
      * @param window_height
      */
-    void render_current_grid(SDL_Renderer *renderer_ptr, const int window_width, const int window_height) {
+    void render_grid(SDL_Renderer *renderer_ptr, const int window_width, const int window_height) {
 
         if (window_width % number_of_columns != 0 || window_height % number_of_rows != 0) {
             std::cout << "T1 must divide the window height and T2 has to divide the window width.\n";
