@@ -11,7 +11,7 @@
 /**
  *
  */
-const unsigned int FPS = 10;
+const unsigned int FPS = 20;
 const int WINDOW_WIDTH = 900;
 const int WINDOW_HEIGHT = 600;
 
@@ -26,7 +26,7 @@ void cap_frame_rate(const uint32_t starting_tick){
 
 int main(int argc, char *argv[])
 {
-    GameOfLife<600, 900> my_game_of_life(100);
+    GameOfLife<300, 450> my_game_of_life(100);
 
     if(SDL_Init(SDL_INIT_VIDEO) < 0)
     {

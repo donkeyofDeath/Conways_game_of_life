@@ -30,8 +30,8 @@ class GameOfLife {
         std::mt19937 mt(rd());
         std::uniform_int_distribution<int> dist(0, 1);
 
-        for (int i = 0; i < number_of_columns; i++) {
-            for (int j = 0; j < number_of_rows; j++) {
+        for (int i = 0; i < number_of_rows; i++) {
+            for (int j = 0; j < number_of_columns; j++) {
 
                 bool random_bool = dist(mt);
 
@@ -140,13 +140,15 @@ public:
 
         if (window_width % number_of_columns != 0 || window_height % number_of_rows != 0) {
             std::cout << "T1 must divide the window height and T2 has to divide the window width.\n";
+            std::cout << "window_width % number_of_columns: " << window_width % number_of_columns << "\n";
+            std::cout << "window_height % number_of_rows: " << window_height % number_of_rows << "\n";
             return;
         }
 
         // int number_of_calls = 0; // For testing purposes
 
-        for (int i = 0; i < number_of_columns; i++) {
-            for (int j = 0; j < number_of_rows; j++) {
+        for (int i = 0; i < number_of_rows; i++) {
+            for (int j = 0; j < number_of_columns; j++) {
 
                 /* The != operator serves as an EXOR here to check if a value has changed. Only if the value has
                 a new rect will be rendered. */
@@ -156,10 +158,14 @@ public:
 
                     //Only render a new rect if the value has changed.
                     SDL_Rect r;
-                    r.x = i * (window_width / number_of_columns);
-                    r.y = j * (window_height / number_of_rows);
-                    r.w = window_width / number_of_columns;
-                    r.h = window_height / number_of_rows;
+
+                    int delta_x = window_width / number_of_columns;
+                    int delta_y = window_height / number_of_rows;
+
+                    r.x = j * delta_x;
+                    r.y = i * delta_y;
+                    r.w = delta_x;
+                    r.h = delta_y;
 
                     // Set render color to blue ( rect will be rendered in this color )
                     if (current_grid[i][j]) {
