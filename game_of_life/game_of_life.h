@@ -47,7 +47,6 @@ public:
     // Underlying grids representing the game of life in the current and last time step.
     std::array<std::array<bool, number_of_columns>, number_of_rows> current_grid{};
     std::array<std::array<bool, number_of_columns>, number_of_rows> last_grid{};
-    // unsigned long number_of_live_cells = 0;
 
     /**
      *Constructor for the game of life objects. In this constructor the grid is initialized randomly.
@@ -131,8 +130,7 @@ public:
      *Update the current grid using the rules of Conway's game of life.
      */
     void update(){
-
-        // number_of_live_cells = 0;
+        
         last_grid = current_grid;
 
         // Loop through the current grid and update the current grid.
@@ -141,7 +139,6 @@ public:
                 current_grid[i][j] = check_grid_point(i, j);
             }
         }
-        // std::cout << "Number of live cells: " << (long double)number_of_live_cells / (long double)(number_of_rows * number_of_columns) << "\n";
     }
 
 
@@ -194,15 +191,17 @@ public:
 
                     // Render the colors and do some error handling.
                     if(SDL_SetRenderDrawColor(renderer_ptr, red, green, blue, opacity)){
-                        std::cout << "Error while rendering the rectangle color: " << SDL_GetError() << "\n"; // Error handling.
+                        std::cout << "Error while rendering the rectangle color: " << SDL_GetError() << "\n"; // Error \
+                        // handling.
                     }
 
                     // Render the rectangle.
                     if(SDL_RenderFillRect(renderer_ptr, &r)){
-                        std::cout << "Error while rendering the rectangle: " << SDL_GetError() << "\n"; // Error handling.
+                        std::cout << "Error while rendering the rectangle: " << SDL_GetError() << "\n"; // Error \
+                        // handling.
                     }
                 }
-                // If the grid point didn't change do nothing
+                // If the grid point didn't change do nothing.
                 else{
                     continue;
                 }
