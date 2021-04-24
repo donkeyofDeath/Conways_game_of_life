@@ -47,6 +47,7 @@ public:
     // Underlying grids representing the game of life in the current and last time step.
     std::array<std::array<bool, number_of_columns>, number_of_rows> current_grid{};
     std::array<std::array<bool, number_of_columns>, number_of_rows> last_grid{};
+    // unsigned long number_of_live_cells = 0;
 
     /**
      *Constructor for the game of life objects. In this constructor the grid is initialized randomly.
@@ -92,10 +93,28 @@ public:
         if (grid_point_status) {
             // If a living cell has 2 or 3 neighbors it stays alive.
             return (number_of_living_neighbors == 2 || number_of_living_neighbors == 3);
+            /*
+            if(number_of_living_neighbors == 2 || number_of_living_neighbors == 3) {
+                number_of_live_cells++;
+                return true;
+            }
+            else {
+                return false;
+            }
+            */
         }
         else {
             // If a cell is dead it gets born if it has 3 living neighbors.
             return (number_of_living_neighbors == 3);
+            /*
+            if(number_of_living_neighbors == 3) {
+                number_of_live_cells++;
+                return true;
+            }
+            else {
+                return false;
+            }
+            */
         }
     }
 
@@ -131,6 +150,7 @@ public:
      */
     void update() {
 
+        // number_of_live_cells = 0;
         last_grid = current_grid;
 
         // Loop through the current grid and update the current grid.
@@ -139,6 +159,7 @@ public:
                 current_grid[i][j] = check_grid_point(i, j);
             }
         }
+        // std::cout << "Number of live cells: " << (long double)number_of_live_cells / (long double)(number_of_rows * number_of_columns) << "\n";
     }
 
 
