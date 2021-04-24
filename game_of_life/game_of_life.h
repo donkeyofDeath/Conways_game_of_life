@@ -130,7 +130,7 @@ public:
      *Update the current grid using the rules of Conway's game of life.
      */
     void update(){
-        
+
         last_grid = current_grid;
 
         // Loop through the current grid and update the current grid.
