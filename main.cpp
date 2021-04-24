@@ -33,14 +33,14 @@ void cap_frame_rate(const unsigned int fps,const Uint32 starting_tick){
  * @param argv I don't know what this does. I just read that you need it for SDL
  * @return 0 = EXIT_SUCCESS, everything else is an error code.
  */
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
+
     // Initializes the SDL library and prints out an error if one occurred.
-    if(SDL_Init(SDL_INIT_VIDEO) < 0)
-    {
+    if(SDL_Init(SDL_INIT_VIDEO) < 0){
         std::cout << "Failed to initialize the SDL2 library, Error: " << SDL_GetError() << "\n"; // Print out the error.
         return -1;
     }
+
 
     // Declare the game window.
     /*SDL_Window *window_ptr = SDL_CreateWindow("Conway\'s game of life",
@@ -68,9 +68,14 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+
     // Render a black screen.
-    SDL_SetRenderDrawColor(renderer_ptr, 0, 0, 0, 255);
-    SDL_RenderClear(renderer_ptr);
+    if(SDL_SetRenderDrawColor(renderer_ptr, 0, 0, 0, 255)){
+        std::cout << "An error occurred when drawing the color: " << SDL_GetError() << "\n"; // Error handling.
+    };
+    if(SDL_RenderClear(renderer_ptr)){
+        std::cout << "An error occurred when clearing the screen: " << SDL_GetError() << "\n"; // Error handling.
+    }
     SDL_RenderPresent(renderer_ptr);
 
 
