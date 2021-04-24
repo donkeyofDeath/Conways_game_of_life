@@ -7,8 +7,8 @@
 
 
 const unsigned int FPS = 30; // FPS at which the game is running.
-const int WINDOW_WIDTH = 900; // Height of the game window in pixels.
-const int WINDOW_HEIGHT = 900; // Width of the game window in pixels.
+const int WINDOW_WIDTH = 600; // Height of the game window in pixels.
+const int WINDOW_HEIGHT = 600; // Width of the game window in pixels.
 
 
 /**
@@ -43,9 +43,14 @@ int main(int argc, char *argv[])
     }
 
     // Declare the game window.
+    /*SDL_Window *window_ptr = SDL_CreateWindow("Conway\'s game of life",
+                                              SDL_WINDOWPOS_CENTERED,
+                                              SDL_WINDOWPOS_CENTERED,
+                                              WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE);*/
+
     SDL_Window *window_ptr = SDL_CreateWindow("Conway\'s game of life",
-                                              SDL_WINDOWPOS_CENTERED,
-                                              SDL_WINDOWPOS_CENTERED,
+                                              200,
+                                              200,
                                               WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE);
 
     // Check if an error occurred during the creation of the game window.
@@ -63,7 +68,13 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    GameOfLife<300, 300> my_game_of_life; // Initialize a game of life object.
+    // Render a black screen.
+    SDL_SetRenderDrawColor(renderer_ptr, 0, 0, 0, 255);
+    SDL_RenderClear(renderer_ptr);
+    SDL_RenderPresent(renderer_ptr);
+
+
+    GameOfLife<200, 200> my_game_of_life; // Initialize a game of life object.
     my_game_of_life.render_grid(renderer_ptr, WINDOW_WIDTH, WINDOW_HEIGHT); // Render grid for the first time.
     SDL_RenderPresent(renderer_ptr); // Render the rect to the screen.
     SDL_Event event; // Define SDL event, which used for quitting the game.
