@@ -21,8 +21,9 @@ periodically or shoot living cells.
 
 ## Results
 
-The resulting dynamic can be seen in the Gif below. The initial state was created by using a probability of 1/2 for a
-cell to either be alive or dead. The grid contains 200 cells in x- and y-direction. 
+An example of resulting dynamic can be seen in the Gif below. The initial state was created by using a probability of
+1/2 for a cell to either be alive or dead. The living cells are colored green and dead cells black.
+The grid contains 200 cells in x- and y-direction. 
 
 <br>
 <br>
