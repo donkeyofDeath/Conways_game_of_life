@@ -1,0 +1,120 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      3956,        112]
+NotebookOptionsPosition[      3385,         94]
+NotebookOutlinePosition[      3786,        110]
+CellTagsIndexPosition[      3743,        107]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+This is a quick script to see which fix points my theory exhibits.\
+\>", "Text",
+ CellChangeTimes->{{3.8283824817998753`*^9, 3.828382495949111*^9}, {
+  3.828382781566649*^9, 3.828382785979947*^9}, {3.8283828789294357`*^9, 
+  3.828382884865552*^9}},ExpressionUUID->"80f7acc1-b4b4-4451-977d-\
+18daec73830c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Solve", "[", 
+   RowBox[{
+    RowBox[{"0", " ", "\[Equal]", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Binomial", "[", 
+        RowBox[{"8", ",", " ", "2"}], "]"}], " ", "*", " ", 
+       RowBox[{"p", "^", "3"}], " ", "*", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"1", " ", "-", " ", "p"}], ")"}], "^", "6"}]}], " ", "+", 
+      " ", 
+      RowBox[{
+       RowBox[{"Binomial", "[", 
+        RowBox[{"8", ",", "3"}], "]"}], " ", "*", " ", 
+       RowBox[{"p", "^", "3"}], " ", "*", " ", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"1", " ", "-", " ", "p"}], ")"}], "^", "5"}]}], " ", "-", 
+      " ", "p"}]}], ",", " ", "p"}], "]"}], "//", "N"}]], "Input",
+ CellChangeTimes->{{3.828113325030998*^9, 3.828113397990799*^9}, {
+  3.828204246925696*^9, 3.828204247679675*^9}, {3.828381695200733*^9, 
+  3.828381712303495*^9}, {3.828382239069034*^9, 3.828382254233692*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"0036c35a-60ec-4238-ab5b-116a9022309b"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"p", "\[Rule]", "0.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"p", "\[Rule]", 
+     RowBox[{"-", "0.08725762584131505`"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"p", "\[Rule]", "0.1924688874474659`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"p", "\[Rule]", "0.3701738375036777`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"p", "\[Rule]", "3.0001239592696796`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"p", "\[Rule]", 
+     RowBox[{"0.921506052709852`", "\[VeryThinSpace]", "-", 
+      RowBox[{"0.43161115141677`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"p", "\[Rule]", 
+     RowBox[{"0.921506052709852`", "\[VeryThinSpace]", "+", 
+      RowBox[{"0.43161115141677`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"p", "\[Rule]", 
+     RowBox[{"1.3407394181003982`", "\[VeryThinSpace]", "-", 
+      RowBox[{"0.227338315800978`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"p", "\[Rule]", 
+     RowBox[{"1.3407394181003982`", "\[VeryThinSpace]", "+", 
+      RowBox[{"0.227338315800978`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{
+  3.8281133993797626`*^9, {3.828204241070342*^9, 3.828204248142126*^9}, 
+   3.8283811461400213`*^9, 3.82838171500395*^9, 3.828382255179063*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"fe474b72-3407-4dcc-938e-4beaf69356d4"]
+}, Open  ]]
+},
+WindowSize->{1438.5, 770.25},
+WindowMargins->{{0.75, Automatic}, {0.75, Automatic}},
+FrontEndVersion->"12.1 for Linux x86 (64-bit) (March 18, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"d425be54-8483-4518-912d-ddb6fbd366d9"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 315, 6, 35, "Text",ExpressionUUID->"80f7acc1-b4b4-4451-977d-18daec73830c"],
+Cell[CellGroupData[{
+Cell[898, 30, 1013, 25, 43, "Input",ExpressionUUID->"0036c35a-60ec-4238-ab5b-116a9022309b"],
+Cell[1914, 57, 1455, 34, 33, "Output",ExpressionUUID->"fe474b72-3407-4dcc-938e-4beaf69356d4"]
+}, Open  ]]
+}
+]
+*)
+
