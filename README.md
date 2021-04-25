@@ -30,3 +30,8 @@ The grid contains 200 cells in x- and y-direction.
 <p align="center">
 <img src=/images_and_gifs/game_of_life.gif>
 </p>
+
+## Statistical analysis
+
+I am physicist and because of this I have to find the fix points of this system and try to predict the ratio of living
+cells using a model which will be making soon.
