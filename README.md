@@ -26,10 +26,10 @@ An example of resulting dynamic can be seen in the Gif below. The initial state 
 The grid contains 200 cells in x- and y-direction. 
 
 <br>
-<br>
-<p align="center">
-<img src=/images_and_gifs/game_of_life.gif>
-</p>
+    <br>
+        <p align="center">
+        <img src=/images_and_gifs/game_of_life.gif>
+        </p>
 
 ## Statistical analysis
 
