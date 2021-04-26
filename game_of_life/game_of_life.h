@@ -5,6 +5,7 @@
 #define MAIN_CPP_GAME_OF_LIFE_H
 
 
+#include <vector>
 #include <array>
 #include <random>
 #include <iostream>
@@ -47,12 +48,24 @@ public:
     // Underlying grids representing the game of life in the current and last time step.
     std::array<std::array<bool, number_of_columns>, number_of_rows> current_grid{};
     std::array<std::array<bool, number_of_columns>, number_of_rows> last_grid{};
+    std::vector<double> number_of_living_cells_time_evolution{};
+    int number_of_time_steps = 0;
+
 
     /**
      *Constructor for the game of life objects. In this constructor the grid is initialized randomly.
      */
     explicit GameOfLife(){
         initialize_random_grid();
+    }
+
+
+    /**
+     *Constructor for the game of life objects. In this constructor the grid is initialized randomly.
+     */
+    explicit GameOfLife(int number_of_time_steps){
+        initialize_random_grid();
+        this->number_of_time_steps = number_of_time_steps;
     }
 
 
@@ -139,6 +152,30 @@ public:
                 current_grid[i][j] = check_grid_point(i, j);
             }
         }
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    std::vector<double> run(){
+
+        const double number_of_cells = number_of_rows * number_of_columns;
+
+        for(int i = 0; i < number_of_time_steps; i++){
+            double number_of_living_cells = 0.;
+            for(std::array<bool, number_of_columns> arr: this->current_grid){
+                for(bool n: arr){
+                    if(n){
+                        number_of_living_cells++;
+                    }
+                }
+            }
+            number_of_living_cells_time_evolution.push_back(number_of_living_cells/number_of_cells);
+            update();
+        }
+        return number_of_living_cells_time_evolution;
     }
 
 
