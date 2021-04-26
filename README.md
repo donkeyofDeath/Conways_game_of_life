@@ -28,10 +28,19 @@ The grid contains 200 cells in x- and y-direction.
 <br>
     <br>
         <p align="center">
-        <img src=/doc/game_of_life.gif>
+            <img src=/doc/game_of_life.gif>
         </p>
 
 ## Statistical analysis
 
-I am physicist and because of this I have to find the fix points of this system and try to predict the ratio of living
-cells using a model which will be making soon.
+I am physicist and because of this I have to find the fix points of this system and try to predict the ratio/density
+of living cells using a model. A very simple model can obtained by thinking of the living cells from one time step to
+another. The density of living cells from one time step to another can be calculated by taking into account all
+scenarios in which a cell is born. Further, it is assumed that the neighbouring cells behave according te the binomial
+distribution. This means that the density of living cells from one time step to another can be calculated by
+<br>
+    <br>
+        <p align="center">
+            <img src=/doc/binomial_model.jpeg>
+        </p>
+In an equilibrium the density doesn't change and it thus given by solving the following equation
