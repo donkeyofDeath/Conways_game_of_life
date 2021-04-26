@@ -10,3 +10,5 @@ add_executable(Conways_game_of_life visualization.cpp game_of_life/game_of_life.
 
 # Added by me
 target_link_libraries(Conways_game_of_life PRIVATE SDL2)
+
+add_executable(statistical_analysis statistical_analysis/statistical_analysis.cpp)
