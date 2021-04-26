@@ -44,3 +44,15 @@ distribution. This means that the density of living cells from one time step to 
             <img src=/doc/binomial_model.jpeg>
         </p>
 In an equilibrium the density doesn't change and it thus given by solving the following equation
+<br>
+    <br>
+        <p align="center">
+            <img src=/doc/equilibrium_equation.jpeg>
+        </p>
+Solving this equation leads to the following results
+<br>
+    <br>
+        <p align="center">
+            <img src=/doc/.jpeg>
+        </p>
+
