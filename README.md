@@ -28,7 +28,7 @@ The grid contains 200 cells in x- and y-direction.
 <br>
     <br>
         <p align="center">
-        <img src=/images_and_gifs/game_of_life.gif>
+        <img src=/doc/game_of_life.gif>
         </p>
 
 ## Statistical analysis
