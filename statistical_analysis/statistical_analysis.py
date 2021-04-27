@@ -9,36 +9,44 @@ time_steps = len(data)
 data = data.reshape(time_steps)
 
 
-def update_func(density):
+def update_density(density: float) -> float:
     """
+    This function describes the modeled evolution of the density of living cells in Conway's game of life from one
+    time step to the next.
 
-    :param density:
-    :return:
+    :param density: Density at time step t
+    :return: Density at tim step t+1.
     """
     return 28 * density**3 * (1 - density)**5 * (3 - density)
 
 
-def model(initial_density, number_of_time_steps):
+def evolve_modeled_density(initial_density: float, number_of_time_steps: int) -> np.ndarray:
     """
+    This function evolves an initial density of living cells according to the model described in the function
+    update_density and returns the result for each time step.
 
-    :param initial_density:
-    :param number_of_time_steps:
+    :param initial_density: Initial density, a value between 0 and 1.
+    :param number_of_time_steps: Number of time steps for which the 
     :return:
     """
     current_density = initial_density
 
-    def density_update(den):
+    def update_and_save(den):
         """
 
         :param den:
         :return:
         """
         nonlocal current_density
-        current_density = update_func(den)
+        current_density = update_density(den)
         return current_density
 
-    return np.array([density_update(current_density) for _ in range(number_of_time_steps)])
+    return np.array([update_and_save(current_density) for _ in range(number_of_time_steps)])
 
+
+# -------------------------------------------------
+# Plotting the simulation results against the model
+# -------------------------------------------------
 
 x_coord = range(time_steps)
 
@@ -54,7 +62,7 @@ ax.set_ylabel("density")
 ax.grid(True)
 
 ax.plot(x_coord, data)
-ax.plot(x_coord, model(0.5, time_steps))
+ax.plot(x_coord, evolve_modeled_density(0.5, time_steps))
 
 plt.tight_layout()
 plt.show()
