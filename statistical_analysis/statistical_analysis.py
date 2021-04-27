@@ -26,7 +26,7 @@ def evolve_modeled_density(initial_density: float, number_of_time_steps: int) ->
     update_density and returns the result for each time step.
 
     :param initial_density: Initial density, a value between 0 and 1.
-    :param number_of_time_steps: Number of time steps for which the 
+    :param number_of_time_steps: Number of time steps for which the
     :return:
     """
     current_density = initial_density
