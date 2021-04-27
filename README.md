@@ -53,6 +53,5 @@ Solving this equation leads to the following results
 <br>
     <br>
         <p align="center">
-            <img src=/doc/.jpeg>
+            <img src=/doc/density_solutions.jpeg>
         </p>
-
