@@ -79,8 +79,8 @@ density of 0.5.
         </p>
 As one can see the prediction of the model does not coincide very well with the actual behavior of the game of life.
 This is partly due to the fact that I disregarded correlations between the cells and oversimplified my model. This is
-further by the results published in [1]. In this paper a similar approach is taken which results in the same prediction
-as me.
+further by the results published in [1]. At the beginning of this paper a similar approach is taken which results in
+the same prediction as my model.
 
 ## Sources
 
