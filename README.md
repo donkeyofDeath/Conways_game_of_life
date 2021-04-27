@@ -85,5 +85,5 @@ paper a similar approach is taken which results in the same faulty prediction as
 
 ## Sources
 
-[1]     L. S. Schulman, P. E. Seiden, Statistical Mechanics of a Dynamical System Based on Conway's Game of Life,
+[1]     L. S. Schulman and P. E. Seiden, Statistical Mechanics of a Dynamical System Based on Conway's Game of Life,
 Journal of Statistical Physics 19, 293 (1978).
