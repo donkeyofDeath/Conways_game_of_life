@@ -55,3 +55,34 @@ Solving this equation leads to the following results
         <p align="center">
             <img src=/doc/density_solutions.jpeg>
         </p>
+Examining the time evolution of this model for different initial densities makes it clear that only two of the three
+values for the equilibrium densities appear, namely 0 and 0.370. The time evolutions in the image below were taken from
+initial densities ranging from 0 to 1 in 0.005-steps.
+<br>
+    <br>
+        <p align="center">
+            <img src=/doc/timestep_density_plot.jpeg>
+    </p>
+Plotting the initial against the final density makes it clear that initial densities between 0.19 and 0.56 result in
+a final density of 0.37 while all other result in a final density of 0.
+<br>
+    <br>
+        <p align="center">
+            <img src=/doc/predicted_densities.jpeg>
+        </p>
+Finally, the behavior of the model can be compared to the behavior of the simulation. This will be done for an initial
+density of 0.5.
+<br>
+    <br>
+        <p align="center">
+            <img src=/doc/timestep_vs_density.jpeg>
+        </p>
+As one can see the prediction of the model does not coincide very well with the actual behavior of the game of life.
+This is partly due to the fact that I disregarded correlations between the cells and oversimplified my model. This is
+further by the results published in [1]. In this paper a similar approach is taken which results in the same prediction
+as me.
+
+## Sources
+
+[1]     L. S. Schulman, P. E. Seiden, Statistical Mechanics of a Dynamical System Based on Conway's Game of Life,
+Journal of Statistical Physics 19, 293 (1978).
