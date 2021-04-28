@@ -104,7 +104,7 @@ number_of_time_steps_model = 15
 # List of all the time steps.
 time_steps = range(number_of_time_steps_model)
 # Starting densities which will be fed to the model.
-initial_densities = np.linspace(0, 1, num=100)
+initial_densities = np.arange(0, 1, 0.005)
 # Resulting time evolutions.
 densities_time_evolution = np.array([evolve_modeled_density(density, number_of_time_steps_model)
                                      for density in initial_densities])
