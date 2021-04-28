@@ -2,16 +2,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-########################################################################################################################
+##############################################################################################################
 # Importing the data. Their could be a nicer way but I haven't worked with pandas really much so this will do.
+##############################################################################################################
+
 data = pd.read_csv("data.csv").astype(float).to_numpy(dtype=float)
-time_steps = len(data)
-data = data.reshape(time_steps)
+max_time_step = len(data)
+data = data.reshape(max_time_step)
 
 
-########################################################################################################################
+###################################
 # Define functions that are needed.
-
+###################################
 
 def update_density(density: float) -> float:
     """
@@ -45,17 +47,19 @@ def evolve_modeled_density(initial_density: float, number_of_time_steps: int) ->
         current_density = update_density(den)
         return current_density
 
-    return np.array([update_and_save_density(current_density) for _ in range(number_of_time_steps)])
+    return np.array([initial_density]+[update_and_save_density(current_density) for _ in range(number_of_time_steps-1)])
 
 
 # ===============================================================
 # Plotting the simulation results and the prediction of the model
 # ===============================================================
 
-x_coord = range(time_steps)
+######################
+# Make the first plot.
+######################
 
-########################################################################################################################
-# Make the first figure.
+# A list with all the tim steps.
+time_steps = range(max_time_step)
 
 fig1 = plt.figure(1)
 ax1 = plt.axes()
@@ -69,50 +73,71 @@ ax1.set_yticklabels([f"{y:.2f}" for y in y_ticks])
 # Set labels.
 ax1.set_xlabel("time step")
 ax1.set_ylabel("density of living cells")
-
 ax1.grid(True)
 
 # Plot the simulation and the model.
-ax1.plot(x_coord, data, label="Simulation")
-ax1.plot(x_coord, evolve_modeled_density(0.5, time_steps), label="Model")
-# place the upper right corner of the legend at (1, 1.0005).
+ax1.plot(time_steps, data, label="Simulation")
+ax1.plot(time_steps, evolve_modeled_density(0.5, max_time_step), label="Model")
+# Place the upper right corner of the legend at (1, 1.0005).
 ax1.legend(loc="upper right", bbox_to_anchor=(1, 1.005))
 
 fig1.tight_layout()
 
-########################################################################################################################
-# Make the second figure.
 
-number_of_time_steps_model = 20
-time_steps_model = range(number_of_time_steps_model)
-initial_densities = np.linspace(0, 1, num=10)
-resulting_densities_evolution = initial_densities + np.array([evolve_modeled_density(density, number_of_time_steps_model) for density in initial_densities])
+#######################
+# Make the second plot.
+#######################
 
-print(resulting_densities_evolution)
+# Number of time steeps used by the model.
+number_of_time_steps_model = 15
 
+# List of all the time steps.
+time_steps = range(number_of_time_steps_model)
+# Starting densities which will be fed to the model.
+initial_densities = np.linspace(0, 1, num=100)
+# Resulting time evolutions.
+densities_time_evolution = np.array([evolve_modeled_density(density, number_of_time_steps_model)
+                                     for density in initial_densities])
+
+# Make with the second plot.
 fig2 = plt.figure(2)
 ax2 = plt.axes()
-# Set axis scale and ticks.
-# ax2.set_yscale("log")
-# y_ticks = [0.03, 0.1, 0.3, 0.5]
-# ax2.set_yticks(y_ticks)
-# ax1.set_major_formatter(matplotlib.ticker.ScalarFormatter())
-# ax2.set_yticklabels([f"{y:.2f}" for y in y_ticks])
 
 # Set labels.
 ax2.set_xlabel("time step")
-ax2.set_ylabel("density of living cells")
-ax2.set_ylim([0, 1])
+ax2.set_ylabel("modeled density of living cells")
 ax2.grid(True)
 
-# Plot the simulation and the model.
-for density_data in resulting_densities_evolution:
-    ax2.plot(time_steps_model, density_data)
-# place the upper right corner of the legend at (1, 1.0005).
-# ax2.legend(loc="upper right", bbox_to_anchor=(1, 1.005))
+# Add all the modeled data to the plot.
+for density_data in densities_time_evolution:
+    ax2.plot(time_steps, density_data)
 
 fig2.tight_layout()
 
-########################################################################################################################
-# Plot everything.
+
+######################
+# Make the third plot.
+######################
+
+resulting_densities = [density_evolution[-1] for density_evolution in densities_time_evolution]
+
+# Initialize the third figure.
+fig3 = plt.figure(3)
+ax3 = plt.axes()
+
+# Set labels.
+ax3.set_xlabel("initial densities")
+ax3.set_ylabel("modeled resulting densities")
+ax3.grid(True)
+
+# Plot the initial densities against the final densities.
+ax3.plot(initial_densities, resulting_densities)
+
+fig3.tight_layout()
+
+
+#####################
+# Show all the plots.
+#####################
+
 plt.show()
