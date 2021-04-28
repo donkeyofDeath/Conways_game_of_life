@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+from scipy.optimize import fsolve
 
 ##############################################################################################################
 # Importing the data. Their could be a nicer way but I haven't worked with pandas really much so this will do.
@@ -48,6 +49,15 @@ def evolve_modeled_density(initial_density: float, number_of_time_steps: int) ->
         return current_density
 
     return np.array([initial_density]+[update_and_save_density(current_density) for _ in range(number_of_time_steps-1)])
+
+
+#######################################
+# Find the steady states of the system.
+#######################################
+
+# Print the predicted solutions.
+print("Predicted solutions:\n", set([round(fsolve(lambda x: update_density(x) - x, np.array([init_dens]))[0], 3)
+                                     for init_dens in np.arange(0, 1, 0.05)]))
 
 
 # ===============================================================
