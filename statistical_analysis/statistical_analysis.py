@@ -7,9 +7,8 @@ from scipy.optimize import fsolve
 # Importing the data. Their could be a nicer way but I haven't worked with pandas really much so this will do.
 ##############################################################################################################
 
-data = pd.read_csv("data.csv").astype(float).to_numpy(dtype=float)
+data = pd.read_csv("data.csv", squeeze=True).astype(float).to_numpy(dtype=float)
 max_time_step = len(data)
-data = data.reshape(max_time_step)
 
 
 ###################################
