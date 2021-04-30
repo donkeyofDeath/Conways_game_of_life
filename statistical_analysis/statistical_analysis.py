@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.optimize import fsolve
 
-##############################################################################################################
-# Importing the data. Their could be a nicer way but I haven't worked with pandas really much so this will do.
-##############################################################################################################
+#####################
+# Importing the data.
+#####################
 
 data = pd.read_csv("data.csv", squeeze=True).astype(float).to_numpy(dtype=float)
 max_time_step = len(data)
