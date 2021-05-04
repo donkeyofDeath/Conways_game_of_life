@@ -12,4 +12,4 @@ add_executable(Conways_game_of_life main.cpp game_of_life/game_of_life.h)
 target_link_libraries(Conways_game_of_life PRIVATE SDL2)
 
 add_executable(statistical_analysis statistical_analysis/statistical_analysis.cpp)
-add_executable(tests tests/tests.cpp)
+add_subdirectory(tests)

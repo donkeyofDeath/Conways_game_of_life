@@ -211,12 +211,12 @@ public:
         const int rect_width = window_width / number_of_columns;
         const int rect_height = window_height / number_of_rows;
 
-        for (int i = 0; i < number_of_rows; i++) {
-            for (int j = 0; j < number_of_columns; j++) {
+        for (int i = 0; i < number_of_rows; i++){
+            for (int j = 0; j < number_of_columns; j++){
 
                 /* The != operator serves as an EXOR here to check if a grid value has changed. Only if the value has
                 a new rect will be rendered. */
-                if (current_grid[i][j] != last_grid[i][j]) {
+                if (current_grid[i][j] != last_grid[i][j]){
 
                     // Define the rectangle parameters.
                     r.x = j * rect_width;
@@ -228,13 +228,13 @@ public:
                     green = current_grid[i][j] ? 255 : 0;
 
                     // Render the colors and do some error handling.
-                    if (SDL_SetRenderDrawColor(renderer_ptr, red, green, blue, opacity)) {
+                    if (SDL_SetRenderDrawColor(renderer_ptr, red, green, blue, opacity)){
                         std::cout << "Error while rendering the rectangle color: " << SDL_GetError() << "\n"; // Error \
                         // handling.
                     }
 
                     // Render the rectangle.
-                    if (SDL_RenderFillRect(renderer_ptr, &r)) {
+                    if (SDL_RenderFillRect(renderer_ptr, &r)){
                         std::cout << "Error while rendering the rectangle: " << SDL_GetError() << "\n"; // Error \
                         // handling.
                     }
