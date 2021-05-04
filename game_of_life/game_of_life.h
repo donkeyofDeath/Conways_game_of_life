@@ -180,14 +180,15 @@ public:
 
 
     /**
-     * This function checks checks where the last and current grid differ and renders the new rectangles. The size of
+     * This function checks where the last and current grid differ and renders the new rectangles. The size of
      * the rectangles is determined by the number of rows and columns relative to window height and width. After the
      * grid is rendered the SDL_RendererPresent method has to be called.
      * @param renderer_ptr An SDL_Renderer object pointer, which is used to render the grid.
      * @param window_width Window width in pixels.
      * @param window_height Window height in pixels.
+     * @return status, error = 1, exit success = 0.
      */
-    void render_grid(SDL_Renderer *renderer_ptr, const int window_width, const int window_height){
+    int render_grid(SDL_Renderer *renderer_ptr, const int window_width, const int window_height){
 
         // Check if the window height and width are divided by the number of columns and rows.
         if (window_width % number_of_columns != 0 || window_height % number_of_rows != 0){
@@ -195,7 +196,7 @@ public:
                          "window width.\n";
             std::cout << "window_width % number_of_columns: " << window_width % number_of_columns << "\n";
             std::cout << "window_height % number_of_rows: " << window_height % number_of_rows << "\n";
-            return;
+            return 1; // Error occurred.
         }
 
         SDL_Rect r; // defines a rect which is then drawn on the screen.
@@ -210,12 +211,12 @@ public:
         const int rect_width = window_width / number_of_columns;
         const int rect_height = window_height / number_of_rows;
 
-        for (int i = 0; i < number_of_rows; i++){
-            for (int j = 0; j < number_of_columns; j++){
+        for (int i = 0; i < number_of_rows; i++) {
+            for (int j = 0; j < number_of_columns; j++) {
 
                 /* The != operator serves as an EXOR here to check if a grid value has changed. Only if the value has
                 a new rect will be rendered. */
-                if (current_grid[i][j] != last_grid[i][j]){
+                if (current_grid[i][j] != last_grid[i][j]) {
 
                     // Define the rectangle parameters.
                     r.x = j * rect_width;
@@ -224,26 +225,27 @@ public:
                     r.h = rect_height;
 
                     // Set the rectangle color to green if the cell is alive, if not set it to black.
-                    green = current_grid[i][j]? 255 : 0;
+                    green = current_grid[i][j] ? 255 : 0;
 
                     // Render the colors and do some error handling.
-                    if(SDL_SetRenderDrawColor(renderer_ptr, red, green, blue, opacity)){
+                    if (SDL_SetRenderDrawColor(renderer_ptr, red, green, blue, opacity)) {
                         std::cout << "Error while rendering the rectangle color: " << SDL_GetError() << "\n"; // Error \
                         // handling.
                     }
 
                     // Render the rectangle.
-                    if(SDL_RenderFillRect(renderer_ptr, &r)){
+                    if (SDL_RenderFillRect(renderer_ptr, &r)) {
                         std::cout << "Error while rendering the rectangle: " << SDL_GetError() << "\n"; // Error \
                         // handling.
                     }
                 }
-                // If the grid point didn't change do nothing.
-                else{
+                    // If the grid point didn't change do nothing.
+                else {
                     continue;
                 }
             }
         }
+        return 0; // Exit success.
     }
 };
 

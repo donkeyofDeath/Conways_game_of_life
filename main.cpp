@@ -7,8 +7,10 @@
 
 
 const unsigned int FPS = 30; // FPS at which the game is running.
-const int WINDOW_WIDTH = 600; // Height of the game window in pixels.
-const int WINDOW_HEIGHT = 600; // Width of the game window in pixels.
+const int WINDOW_WIDTH = 800; // Height of the game window in pixels.
+const int WINDOW_HEIGHT = 800; // Width of the game window in pixels.
+const unsigned long NUMBER_OF_ROWS = 400;  // Number of rows in the game of life.
+const unsigned long NUMBER_OF_COLUMNS = 400; // Number of columns in the game of life.
 
 
 /**
@@ -33,7 +35,7 @@ void cap_frame_rate(const unsigned int fps,const Uint32 starting_tick){
  * @param argv I don't know what this does. I just read that you need it for SDL
  * @return 0 = EXIT_SUCCESS, everything else is an error code.
  */
-int main(int argc, char *argv[]) {
+int main() {
 
     // Initializes the SDL library and prints out an error if one occurred.
     if(SDL_Init(SDL_INIT_VIDEO) < 0){
@@ -72,26 +74,34 @@ int main(int argc, char *argv[]) {
     // Render a black screen.
     if(SDL_SetRenderDrawColor(renderer_ptr, 0, 0, 0, 255)){
         std::cout << "An error occurred when drawing the color: " << SDL_GetError() << "\n"; // Error handling.
-    };
+    }
     if(SDL_RenderClear(renderer_ptr)){
         std::cout << "An error occurred when clearing the screen: " << SDL_GetError() << "\n"; // Error handling.
     }
     SDL_RenderPresent(renderer_ptr);
 
+    bool running = true; // Define running variable, which is used for quitting the game.
 
-    GameOfLife<200, 200> my_game_of_life; // Initialize a game of life object.
-    my_game_of_life.render_grid(renderer_ptr, WINDOW_WIDTH, WINDOW_HEIGHT); // Render grid for the first time.
+    GameOfLife<NUMBER_OF_ROWS, NUMBER_OF_COLUMNS> my_game_of_life; // Initialize a game of life object.
+    if(my_game_of_life.render_grid(renderer_ptr, WINDOW_WIDTH, WINDOW_HEIGHT)){ // Render grid for the first time.
+        std::cout << "An error occurred within the game of life class when rendering the screen.";
+        running = false;
+    }
     SDL_RenderPresent(renderer_ptr); // Render the rect to the screen.
     SDL_Event event; // Define SDL event, which used for quitting the game.
-    bool running = true; // Define running variable, which is used for quitting the game.
 
     // Main game loop
     while(running){
 
         Uint32 starting_tick = SDL_GetTicks(); // Starting tick is needed for capping the frame rate.
 
+        // Render the updated game.
         my_game_of_life.update();
-        my_game_of_life.render_grid(renderer_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+        if(my_game_of_life.render_grid(renderer_ptr, WINDOW_WIDTH, WINDOW_HEIGHT)){
+            std::cout << "An error occurred within the game of life class when rendering the screen.";
+            running = false;
+            break;
+        }
         SDL_RenderPresent(renderer_ptr);
 
         while(SDL_PollEvent(&event)){ // Loop used for quitting the game.
