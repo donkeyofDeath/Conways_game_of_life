@@ -62,10 +62,32 @@ public:
 
     /**
      *Constructor for the game of life objects. In this constructor the grid is initialized randomly.
+     * @param number_of_time_steps Number of time steps after which the game of life terminates.
      */
     explicit GameOfLife(int number_of_time_steps){
         initialize_random_grid();
         this->number_of_time_steps = number_of_time_steps;
+    }
+
+
+    /**
+     * Constructor mainly used for testing in which the starting grid is declared.
+     * @param starting_grid Grid from which the game of life starts.
+     */
+    explicit GameOfLife(std::array<std::array<bool, number_of_columns>, number_of_rows> starting_grid){
+        current_grid = starting_grid;
+    }
+
+
+    /**
+     * Constructor mainly used for testing in which the starting grid and the number of time steps are declared.
+     * @param number_of_time_steps Number of time steps after which the game of life terminates.
+     * @param starting_grid Grid from which the game of life starts.
+     */
+    explicit GameOfLife(int number_of_time_steps,
+                        std::array<std::array<bool, number_of_columns>, number_of_rows> starting_grid){
+        this->number_of_time_steps = number_of_time_steps;
+        current_grid = starting_grid;
     }
 
 
@@ -78,7 +100,7 @@ public:
     */
     bool check_grid_point(const int i, const int j){
 
-        bool grid_point_status = this->last_grid[i][j]; // Save the grid status.
+        bool grid_point_status = last_grid[i][j]; // Save the grid status.
         int number_of_living_neighbors = 0; // Sum representing the number of living cells surrounding the given cell.
 
         // Loop through all the row neighbors.
@@ -96,7 +118,7 @@ public:
                     continue;
                 }
                 // Ignore the cell itself.
-                else if (!(ii == 0 && jj == 0) && this->last_grid[i + ii][j + jj]){
+                else if (!(ii == 0 && jj == 0) && last_grid[i + ii][j + jj]){
                     number_of_living_neighbors++; // Increase the number of living neighbors if a neighbor is alive.
                 }
             }
@@ -117,7 +139,7 @@ public:
      *Print the current grid to the console.
      */
     void print_current_grid(){
-        for (std::array<bool, number_of_columns> arr: this->current_grid) {
+        for (std::array<bool, number_of_columns> arr: current_grid) {
             for (bool i: arr){
                 std::cout << i << "\t";
             }
@@ -130,7 +152,7 @@ public:
      *Print the last grid to the console.
      */
     void print_last_grid(){
-        for (std::array<bool, number_of_columns> arr: this->last_grid){
+        for (std::array<bool, number_of_columns> arr: last_grid){
             for (bool i: arr){
                 std::cout << i << "\t";
             }
@@ -156,16 +178,20 @@ public:
 
 
     /**
-     *
-     * @return
+     * Runs the program for the according number of time steps specified in the constructor.
+     * @return Returns a vector with the number of living cells in each time step.
      */
     std::vector<double> run(){
 
         const double number_of_cells = number_of_rows * number_of_columns;
 
+        if(number_of_time_steps <= 0){
+            std::cout << "Number of time steps needs to be greater than zero.";
+        }
+
         for(int i = 0; i < number_of_time_steps; i++){
             double number_of_living_cells = 0.;
-            for(std::array<bool, number_of_columns> arr: this->current_grid){
+            for(std::array<bool, number_of_columns> arr: current_grid){
                 for(bool n: arr){
                     if(n){
                         number_of_living_cells++;
